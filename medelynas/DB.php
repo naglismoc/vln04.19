@@ -37,12 +37,15 @@ function all(){
     $result = $conn->query($sql);
     $conn->close();
     return $result;
-
 }
 
 function store(){
+    $is_yearling = 0;
+    if(isset($_POST['is_yearling'])){
+        $is_yearling = 1;  
+    }
     $conn = connect();
-    $sql = 'INSERT INTO `plants`(`id`, `name`, `is_yearling`, `quantity`) VALUES (NULL,"'.$_POST['name'].'","'.$_POST['is_yearling'].'","'.$_POST['quantity'].'")';
+    $sql = 'INSERT INTO `plants`(`id`, `name`, `is_yearling`, `quantity`) VALUES (NULL,"'.$_POST['name'].'","'.$is_yearling.'","'.$_POST['quantity'].'")';
     $conn->query($sql);
     $conn->close();
 }
