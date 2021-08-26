@@ -67,7 +67,7 @@ include('./DB.php');
     </style>
 </head>
 <body>
-
+    <div class="container">
     <form class="form" action="" method="POST">
       
         <div class="form-group row">
@@ -83,12 +83,7 @@ include('./DB.php');
                 <!-- <input class="form-control" type="text" name="is_yearling" value="<?= (isset($plant))? $plant['is_yearling'] : "" ?>"> -->
             </div>
          </div>
-         <div class="form-group row">
-            <label class="col-sm-2 col-form-label" >Kiekis</label>
-            <div class="col-sm-4">
-                <input class="form-control" type="text" name="quantity" value="<?= (isset($plant))? $plant['quantity'] : "" ?>">
-            </div>
-         </div>
+
     <?php if(!isset($plant)){
             echo '<button class="btn btn-primary" name="create" type="submit">Pridėti augalą</button>';
     }else{
@@ -100,7 +95,7 @@ include('./DB.php');
 
     <table class="table">
         <tr>
-        <th>Id</th> 
+        <th>Nr / Id</th> 
         <th>Rūšis</th> 
         <th>vienmetis</th> 
         <th>kiekis</th> 
@@ -110,7 +105,7 @@ include('./DB.php');
         </tr>
 
 
-        <?php $count = 0; foreach (allOld() as $plant) { 
+        <?php $count = 0; foreach (all() as $plant) { 
             $checked = "";
             if( $plant['is_yearling'] ){
                 $checked = "checked";
@@ -118,13 +113,13 @@ include('./DB.php');
             
             ?>
             <tr>
-            <td> <?= ++$count."/".$plant['id']  ?> </td>
+            <td> <?= ++$count." / ".$plant['id']  ?> </td>
                 <td> <?= $plant['name']  ?> </td>
                 <td> 
                     <input type="checkbox" name="" id="" <?=$checked?> disabled>
                 </td>
                 <td> <?= $plant['quantity']  ?> </td>
-                <td>     <a class="btn btn-primary" href="./plants.php?id=<?= $plant['id']  ?>">augalai</a> </td>
+                <td>     <a class="btn btn-primary" href="./plants.php?plant_id=<?= $plant['id']  ?>">augalai</a> </td>
                 <td>
                  
                     <a class="btn btn-success" href="?edit=<?= $plant['id']  ?>">edit</a>
@@ -137,5 +132,6 @@ include('./DB.php');
             </tr>
         <?php } ?>
     </table>
+    </div>
 </body>
 </html>

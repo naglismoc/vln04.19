@@ -20,8 +20,8 @@ function all(){
             FROM `unique_plants`
             INNER join `plants`
             ON `plants`.`id` = `unique_plants`.`plant_id`";
-    if(isset($_GET['id'])){
-        $sql = "SELECT * from `unique_plants` where plant_id = ".$_GET['id'];
+    if(isset($_GET['plant_id'])){
+        $sql = "SELECT * from `unique_plants` where plant_id = ".$_GET['plant_id'];
     }
     $result = $conn->query($sql);
     $conn->close();

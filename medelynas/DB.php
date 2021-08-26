@@ -29,11 +29,23 @@ function allOld(){
     $conn->close();
     return $arr;
 }
-
+function countInstances($id){
+    $conn = connect();
+    $sql = "SELECT * from `plants` bla bla get all instances where id =".$id;
+    $result = $conn->query($sql);
+    $conn->close();
+    return $result;
+}
 
 function all(){
     $conn = connect();
-    $sql = "SELECT * from `plants`";
+    $sql = "SELECT `plants`.`id`, `name`, `is_yearling`,
+    (SELECT COUNT(*)
+    FROM `unique_plants`
+    WHERE `unique_plants`.`plant_id` = `plants`.`id`) as 'quantity'
+    FROM `unique_plants` right join `plants`
+    ON `plants`.`id` = `unique_plants`.`plant_id`
+    GROUP by `plants`.`id`;";
     $result = $conn->query($sql);
     $conn->close();
     return $result;
@@ -52,8 +64,12 @@ function store(){
 
 
 function update(){
+    $is_yearling = 0;
+    if(isset($_POST['is_yearling'])){
+        $is_yearling = 1;  
+    }
     $conn = connect();
-    $sql = 'UPDATE `plants` SET `name`="'.$_POST['name'].'",`is_yearling`="'.$_POST['is_yearling'].'",`quantity`="'.$_POST['quantity'].'" WHERE id = '.$_POST['update'];
+    $sql = 'UPDATE `plants` SET `name`="'.$_POST['name'].'",`is_yearling`="'. $is_yearling.'" WHERE id = '.$_POST['update'];
     $conn->query($sql);
     $conn->close();
 }

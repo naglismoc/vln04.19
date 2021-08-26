@@ -10,19 +10,19 @@ include('./uniquePlants.php');
 
     if(isset($_POST['create'] )){
         store();
-        header("location:./plants.php?id=".$_POST['plant_id']);
+        header("location:./plants.php?plant_id=".$_POST['plant_id']);
         die;
     }
 
     if(isset($_POST['update'] )){
         update();
-        header("location:./plants.php?id=".$_POST['plant_id']);
+        header("location:./plants.php?plant_id=".$_POST['plant_id']);
         die;
     }
     
     if(isset($_POST['delete'] )){
         destroy($_POST['delete']);
-        header("location:./plants.php?id=".$_POST['plant_id']);
+        header("location:./plants.php?plant_id=".$_POST['plant_id']);
         die; 
     }
 
@@ -89,7 +89,7 @@ include('./uniquePlants.php');
                 <input class="form-control" type="text" name="health" value="<?= (isset($plant))? $plant['health'] : "" ?>">
             </div>
          </div>
-         <input type="hidden" name="plant_id" value="<?=$_GET['id']?>">
+         <input type="hidden" name="plant_id" value="<?=$_GET['plant_id']?>">
     <?php if(!isset($plant)){
             echo '<button class="btn btn-primary" name="create" type="submit">Pridėti augalą</button>';
     }else{
@@ -114,7 +114,7 @@ include('./uniquePlants.php');
         <th>edit</th> 
         <th>delete</th> 
         </tr>
-
+            
 
         <?php $count = 0; foreach ($all as $plant) {
            
@@ -131,11 +131,11 @@ include('./uniquePlants.php');
                 <td> <?= $plant['health']  ?> </td>
                 <td>
                  
-                    <a class="btn btn-success" href="?id=<?=    $_GET['id']?>&edit=<?= $plant['id']  ?>">edit</a>
+                    <a class="btn btn-success" href="?plant_id=<?=    $_GET['plant_id']?>&edit=<?= $plant['id']  ?>">edit</a>
                 </td>
                 <td>
                     <form action="" method="post">
-                        <input type="hidden" name="plant_id" value="<?=$_GET['id']?>">
+                        <input type="hidden" name="plant_id" value="<?=$_GET['plant_id']?>">
                         <button class="btn btn-danger" type="submit" name="delete" value="<?=$plant['id']?>"  >delete</button>
                     </form>
                 </td>
