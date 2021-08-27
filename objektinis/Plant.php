@@ -15,6 +15,7 @@ class Plant{
     function intro(){
         echo "<br>I am ".$this->name." plant, and i am".$this->is_yearling."<br>";
     }
+    
     public static function classDescription()
     {
        echo "<br> sita klase skirta aprasyti augalu rusims<br>";
